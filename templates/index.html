@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Tarefas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Minhas Tarefas</h1>
+        
+        <form action="{{ url_for('add') }}" method="POST">
+            <input type="text" name="task" placeholder="O que você precisa fazer?" required autocomplete="off">
+            <button type="submit" class="btn-add">Adicionar</button>
+        </form>
+
+        <hr>
+
+        <ul class="task-list">
+            {% for task in tasks %}
+                <li>
+                    <span class="task-text">{{ task }}</span>
+                    <a href="{{ url_for('delete', task_id=loop.index0) }}" style="text-decoration: none;">
+                        <button type="button" class="btn-delete">Remover</button>
+                    </a>
+                </li>
+            {% else %}
+                <p class="empty">Nenhuma tarefa mano, cria uma.</p>
+            {% endfor %}
+        </ul>
+    </div>
+
+</body>
+</html>
